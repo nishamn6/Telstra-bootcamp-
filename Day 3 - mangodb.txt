@@ -690,3 +690,1134 @@ Bootcamp> db.products.find()
     storage: [ 128, 256 ]
   }
 ]
+Bootcamp> db.employee.inserMany([ { _id: 1, name: "john", dept: "gnt", salary: 10000, age: 21 }, { _id: 2, name: "kim", dept: "tse", salary: 10000, age: 22 }, { _id: 3, name: "nikos", dept: "data", salary: 20000, age: 23 }, { _id: 4, name: "norel", dept: "gnt", salary: 40000, age: 22 }, { _id: 5, name: "jos", dept: "tse", salary: 30000, age: 21 }, { _id: 6, name: "root", dept: "data", salary: 50000, age: 23 }])
+TypeError: db.employee.inserMany is not a function
+Bootcamp> db.employee.insertMany([ { _id: 1, name: "john", dept: "gnt", salary: 10000, age: 21 }, { _id: 2, name: "kim", dept: "tse", salary: 10000, age: 22 }, { _id: 3, name: "nikos", dept: "data", salary: 20000, age: 23 }, { _id: 4, name: "norel", dept: "gnt", salary: 40000, age: 22 }, { _id: 5, name: "jos", dept: "tse", salary: 30000, age: 21 }, { _id: 6, name: "root", dept: "data", salary: 50000, age: 23 }])
+{
+  acknowledged: true,
+  insertedIds: { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5, '5': 6 }
+}
+Bootcamp> db.employee.find()
+[
+  { _id: 1, name: 'john', dept: 'gnt', salary: 10000, age: 21 },
+  { _id: 2, name: 'kim', dept: 'tse', salary: 10000, age: 22 },
+  { _id: 3, name: 'nikos', dept: 'data', salary: 20000, age: 23 },
+  { _id: 4, name: 'norel', dept: 'gnt', salary: 40000, age: 22 },
+  { _id: 5, name: 'jos', dept: 'tse', salary: 30000, age: 21 },
+  { _id: 6, name: 'root', dept: 'data', salary: 50000, age: 23 }
+]
+Bootcamp> db.employee.aggregate([{$group:{_id:"dept",Budget:{$sum:"$salary"}}}])
+[ { _id: 'dept', Budget: 160000 } ]
+Bootcamp> db.employee.aggregate([{$group:{_id:"dept",Budget:{$count:"$salary"}}}])
+MongoServerError: $count takes no arguments, i.e. $count:{}
+Bootcamp> db.employee.aggregate([{$group:{_id:"$dept",Budget:{$sum:"$salary"}}}])
+[
+  { _id: 'tse', Budget: 40000 },
+  { _id: 'data', Budget: 70000 },
+  { _id: 'gnt', Budget: 50000 }
+]
+Bootcamp> db.employee.aggregate([{$group:{_id:"$dept",Budget:{$sum:"$age"}}}])
+[
+  { _id: 'tse', Budget: 43 },
+  { _id: 'gnt', Budget: 43 },
+  { _id: 'data', Budget: 46 }
+]
+Bootcamp> db.employee.aggregate([{$group:{_id:"$age",Budget:{$sum:"$salary"}}}])
+[
+  { _id: 23, Budget: 70000 },
+  { _id: 21, Budget: 40000 },
+  { _id: 22, Budget: 50000 }
+]
+Bootcamp> db.employee.aggregate([{$group:{_id:"$age",Budget:{$sum:"$salary"}}}])
+[
+  { _id: 22, Budget: 50000 },
+  { _id: 23, Budget: 70000 },
+  { _id: 21, Budget: 40000 }
+]
+Bootcamp> db.sales.aggregate([
+...     {
+...             $match: { item: "Americanos" }
+...     },
+...     {
+...             $group: {
+...                     _id: "$size",
+...                     totalQty: {$sum: "$quantity"}
+...             }
+...     },
+...     {
+...             $sort: { totalQty : -1}
+...     }
+...             $match: { item: "Americanos" }
+Uncaught:
+SyntaxError: Unexpected token, expected "," (14:2)
+
+  12 |          $sort: { totalQty : -1}
+  13 |  }
+> 14 |          $match: { item: "Americanos" }
+     |          ^
+  15 |
+
+Bootcamp> db.sales.aggregate([
+...     {
+...             $match: { item: "Americanos" }
+...     },
+...     {
+...             $group: {
+...                     _id: "$size",
+...                     totalQty: {$sum: "$quantity"}
+...             }
+...     },
+...     {
+...             $sort: { totalQty : -1}
+...     }
+... ]);
+
+Bootcamp> db.employee.updateMany({_id:4},{$set:{salary:250000}},{upsert:true})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Bootcamp> db.employee.find()
+[
+  { _id: 1, name: 'john', dept: 'gnt', salary: 10000, age: 21 },
+  { _id: 2, name: 'kim', dept: 'tse', salary: 10000, age: 22 },
+  { _id: 3, name: 'nikos', dept: 'data', salary: 20000, age: 23 },
+  { _id: 4, name: 'norel', dept: 'gnt', salary: 250000, age: 22 },
+  { _id: 5, name: 'jos', dept: 'tse', salary: 30000, age: 21 },
+  { _id: 6, name: 'root', dept: 'data', salary: 50000, age: 23 }
+]
+
+
+mangodb assignments:
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Bootcamp> db.movies.insertOne({title:"Fight Club", writer: "Chuck Palahniuk", year: "1999", actors:["Brad Pitt", "Edward Norton"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64c0f4ee70b8f696ff689a4b")
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  }
+]
+Bootcamp>  db.movies.insert({title:"Pulp Fiction", writer:"Quentin Tarantino", year:"2009", actors:["John Travolta", "Uma Thurman"]})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f50d70b8f696ff689a4c") }
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  }
+]
+Bootcamp> db.movies.insert({title:"Inglorious Basterds", writer:"Quentin Tarantino", year:"2009", actors:["Brad Pitt", "Diane Kruger", "Eli Roth"]})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f54470b8f696ff689a4d") }
+}
+Bootcamp> db.movies.insert({title:"The Hobbit: An unexpected Journey", writer:"J.R.R. Tolkein", year:"2012",franchise:"The Hobbit"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f55a70b8f696ff689a4e") }
+}
+Bootcamp> db.movies.insert({title:"The Hobbit: The Desolation of Smaug", writer:"J.R.R Tolkien", year:"2013", franchise:"The Hobbit"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f5af70b8f696ff689a4f") }
+}
+Bootcamp> db.movies.insert({title:"The Hobbit: The Desolation of Smaug", writer:"J.R.R Tolkien", year:"2013", franchise:"The Hobbit"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f5ec70b8f696ff689a50") }
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  }
+]
+Bootcamp> db.movies.insert({title:"Pee Wee Herman's Big Adventures"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f66c70b8f696ff689a51") }
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  }
+]
+Bootcamp> db.movies.insert({title:"Avatar"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0f71870b8f696ff689a52") }
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.find({writer:"Quentin Tarantino"})
+[
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  }
+]
+Bootcamp> db.movies.find({actors:"Brad Pitt"})
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  }
+]
+Bootcamp> db.movies.find({franchise:"The Hobbit"})
+[
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  }
+]
+Bootcamp> db.movies.find({year:{$gt:"1990", $lt:"2000"}})
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  }
+]
+Bootcamp> db.movies.find({$or:[{year:{$gt:"2010"}},{year: {$lt:"2000"}}]})
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  }
+]
+Bootcamp> db.movies.find({year:{$gt:"2005",$lt:"2010"}})
+[
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  }
+]
+Bootcamp> db.movies.update({year:"2009"})}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+Uncaught:
+SyntaxError: Unexpected token (1:31)
+
+> 1 | db.movies.update({year:"2009"})}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+    |                                ^
+  2 |
+
+Bootcamp> db.movies.update({year:2009})}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+Uncaught:
+SyntaxError: Unexpected token (1:29)
+
+> 1 | db.movies.update({year:2009})}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+    |                              ^
+  2 |
+
+Bootcamp> db.movies.update({year:2009}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.update({_id:ObjectId("5c9f98e5e5c2dfe9b3729bfe")}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.update({_id:ObjectId("5c9f983ce5c2dfe9b3729bfc")}, {$push:{actors:"Samuel L. Jackson"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.find({synopsis:{$regex:"Bilbo"}})
+
+Bootcamp> db.movies.remove({_id:ObjectId("5c9f992ae5c2dfe9b3729c00")})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 0 }
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.remove({_id:ObjectId("5c9f9936e5c2dfe9b3729c01")})
+{ acknowledged: true, deletedCount: 0 }
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  },
+  { _id: ObjectId("64c0f71870b8f696ff689a52"), title: 'Avatar' }
+]
+Bootcamp> db.movies.remove({title:"Avatar"})
+{ acknowledged: true, deletedCount: 1 }
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f66c70b8f696ff689a51"),
+    title: "Pee Wee Herman's Big Adventures"
+  }
+]
+Bootcamp> db.movies.remove({title:"Pee Wee Herman's Big Adventures"})
+{ acknowledged: true, deletedCount: 1 }
+Bootcamp> db.movies.find()
+[
+  {
+    _id: ObjectId("64c0f4ee70b8f696ff689a4b"),
+    title: 'Fight Club',
+    writer: 'Chuck Palahniuk',
+    year: '1999',
+    actors: [ 'Brad Pitt', 'Edward Norton' ]
+  },
+  {
+    _id: ObjectId("64c0f50d70b8f696ff689a4c"),
+    title: 'Pulp Fiction',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'John Travolta', 'Uma Thurman' ]
+  },
+  {
+    _id: ObjectId("64c0f54470b8f696ff689a4d"),
+    title: 'Inglorious Basterds',
+    writer: 'Quentin Tarantino',
+    year: '2009',
+    actors: [ 'Brad Pitt', 'Diane Kruger', 'Eli Roth' ]
+  },
+  {
+    _id: ObjectId("64c0f55a70b8f696ff689a4e"),
+    title: 'The Hobbit: An unexpected Journey',
+    writer: 'J.R.R. Tolkein',
+    year: '2012',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5af70b8f696ff689a4f"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  },
+  {
+    _id: ObjectId("64c0f5ec70b8f696ff689a50"),
+    title: 'The Hobbit: The Desolation of Smaug',
+    writer: 'J.R.R Tolkien',
+    year: '2013',
+    franchise: 'The Hobbit'
+  }
+]
+Bootcamp> db.users.insert({_id:1,username:"GoodGuyGreg", first_name:"Good Guy", last_name:"Greg"})
+{ acknowledged: true, insertedIds: { '0': 1 } }
+Bootcamp> db.users.find()
+[
+  {
+    _id: 1,
+    username: 'GoodGuyGreg',
+    first_name: 'Good Guy',
+    last_name: 'Greg'
+  }
+]
+Bootcamp> db.users.insert({_id:2, username:"ScumbagSteve", fullname:{first: "Scumbag", last:"Steve"}})
+{ acknowledged: true, insertedIds: { '0': 2 } }
+Bootcamp> db.posts.insert({username:"GoodGuyGreg", title:"Passes out at Party", body:"Raises your credit score"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe2270b8f696ff689a53") }
+}
+Bootcamp> db.posts.insert({ username:"GoodGuyGreg", title:"Steals your identity", body:"Raises your credit score"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe2f70b8f696ff689a54") }
+}
+Bootcamp> db.posts.insert({username:"GoodGuyGreg", title:"Reports a bug in your code", body:"Sends you a pull request"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe3b70b8f696ff689a55") }
+}
+Bootcamp> db.posts.insert({ username:"ScumbagSteve", title:"Borrows something", body:"Sells it"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe4570b8f696ff689a56") }
+}
+Bootcamp> db.posts.insert({ username:"ScumbagSteve", title:"Borrows everything", body:"The end"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe5070b8f696ff689a57") }
+}
+Bootcamp> db.posts.insert({username:"ScumbagSteve", title:"Forks your repo on github", body:"Sets to private"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe5d70b8f696ff689a58") }
+}
+Bootcamp> db.posta.find()
+
+Bootcamp> db.posts.find()
+[
+  {
+    _id: ObjectId("64c0fe2270b8f696ff689a53"),
+    username: 'GoodGuyGreg',
+    title: 'Passes out at Party',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe2f70b8f696ff689a54"),
+    username: 'GoodGuyGreg',
+    title: 'Steals your identity',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe3b70b8f696ff689a55"),
+    username: 'GoodGuyGreg',
+    title: 'Reports a bug in your code',
+    body: 'Sends you a pull request'
+  },
+  {
+    _id: ObjectId("64c0fe4570b8f696ff689a56"),
+    username: 'ScumbagSteve',
+    title: 'Borrows something',
+    body: 'Sells it'
+  },
+  {
+    _id: ObjectId("64c0fe5070b8f696ff689a57"),
+    username: 'ScumbagSteve',
+    title: 'Borrows everything',
+    body: 'The end'
+  },
+  {
+    _id: ObjectId("64c0fe5d70b8f696ff689a58"),
+    username: 'ScumbagSteve',
+    title: 'Forks your repo on github',
+    body: 'Sets to private'
+  }
+]
+Bootcamp> db.comments.insert({ username:"GoodGuyGreg", comment:"Hope you got a good deal!", post:ObjectId("5ca0b7e96435f98b5901f463")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fe9f70b8f696ff689a59") }
+}
+Bootcamp> db.comments.find()
+[
+  {
+    _id: ObjectId("64c0fe9f70b8f696ff689a59"),
+    username: 'GoodGuyGreg',
+    comment: 'Hope you got a good deal!',
+    post: ObjectId("5ca0b7e96435f98b5901f463")
+  }
+]
+Bootcamp> .comments.insert({username:"GoodGuyGreg", comment:"What's mine is yours!", post:ObjectId("5ca0b9706435f98b5901f46a")})
+Invalid REPL keyword
+Bootcamp> db.comments.insert({username:"GoodGuyGreg", comment:"What's mine is yours!", post:ObjectId("5ca0b9706435f98b5901f46a")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fedc70b8f696ff689a5a") }
+}
+Bootcamp> db.comments.insert({username:"GoodGuyGreg", comment:"Don't violate the licensing agreement!", post:ObjectId("5ca0b8766435f98b5901f467")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0fef870b8f696ff689a5b") }
+}
+Bootcamp> db.comments.find()
+[
+  {
+    _id: ObjectId("64c0fe9f70b8f696ff689a59"),
+    username: 'GoodGuyGreg',
+    comment: 'Hope you got a good deal!',
+    post: ObjectId("5ca0b7e96435f98b5901f463")
+  },
+  {
+    _id: ObjectId("64c0fedc70b8f696ff689a5a"),
+    username: 'GoodGuyGreg',
+    comment: "What's mine is yours!",
+    post: ObjectId("5ca0b9706435f98b5901f46a")
+  },
+  {
+    _id: ObjectId("64c0fef870b8f696ff689a5b"),
+    username: 'GoodGuyGreg',
+    comment: "Don't violate the licensing agreement!",
+    post: ObjectId("5ca0b8766435f98b5901f467")
+  }
+]
+Bootcamp> db.comments.insert({username:"ScumbagSteve", comment:"It still isn't clean", post:ObjectId("5ca0b8546435f98b5901f466")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0ff0b70b8f696ff689a5c") }
+}
+Bootcamp> db.comments.insert({username:"ScumbagSteve", comment:"Denied your PR cause I found a hack", post:ObjectId("5ca0b9256435f98b5901f469")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("64c0ff1970b8f696ff689a5d") }
+}
+Bootcamp> db.comments.find()
+[
+  {
+    _id: ObjectId("64c0fe9f70b8f696ff689a59"),
+    username: 'GoodGuyGreg',
+    comment: 'Hope you got a good deal!',
+    post: ObjectId("5ca0b7e96435f98b5901f463")
+  },
+  {
+    _id: ObjectId("64c0fedc70b8f696ff689a5a"),
+    username: 'GoodGuyGreg',
+    comment: "What's mine is yours!",
+    post: ObjectId("5ca0b9706435f98b5901f46a")
+  },
+  {
+    _id: ObjectId("64c0fef870b8f696ff689a5b"),
+    username: 'GoodGuyGreg',
+    comment: "Don't violate the licensing agreement!",
+    post: ObjectId("5ca0b8766435f98b5901f467")
+  },
+  {
+    _id: ObjectId("64c0ff0b70b8f696ff689a5c"),
+    username: 'ScumbagSteve',
+    comment: "It still isn't clean",
+    post: ObjectId("5ca0b8546435f98b5901f466")
+  },
+  {
+    _id: ObjectId("64c0ff1970b8f696ff689a5d"),
+    username: 'ScumbagSteve',
+    comment: 'Denied your PR cause I found a hack',
+    post: ObjectId("5ca0b9256435f98b5901f469")
+  }
+]
+Bootcamp> db.users.find().pretty()
+[
+  {
+    _id: 1,
+    username: 'GoodGuyGreg',
+    first_name: 'Good Guy',
+    last_name: 'Greg'
+  },
+  {
+    _id: 2,
+    username: 'ScumbagSteve',
+    fullname: { first: 'Scumbag', last: 'Steve' }
+  }
+]
+Bootcamp> db.posts.find().pretty()
+[
+  {
+    _id: ObjectId("64c0fe2270b8f696ff689a53"),
+    username: 'GoodGuyGreg',
+    title: 'Passes out at Party',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe2f70b8f696ff689a54"),
+    username: 'GoodGuyGreg',
+    title: 'Steals your identity',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe3b70b8f696ff689a55"),
+    username: 'GoodGuyGreg',
+    title: 'Reports a bug in your code',
+    body: 'Sends you a pull request'
+  },
+  {
+    _id: ObjectId("64c0fe4570b8f696ff689a56"),
+    username: 'ScumbagSteve',
+    title: 'Borrows something',
+    body: 'Sells it'
+  },
+  {
+    _id: ObjectId("64c0fe5070b8f696ff689a57"),
+    username: 'ScumbagSteve',
+    title: 'Borrows everything',
+    body: 'The end'
+  },
+  {
+    _id: ObjectId("64c0fe5d70b8f696ff689a58"),
+    username: 'ScumbagSteve',
+    title: 'Forks your repo on github',
+    body: 'Sets to private'
+  }
+]
+Bootcamp> db.posts.find({username:"GoodGuyGreg"})
+[
+  {
+    _id: ObjectId("64c0fe2270b8f696ff689a53"),
+    username: 'GoodGuyGreg',
+    title: 'Passes out at Party',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe2f70b8f696ff689a54"),
+    username: 'GoodGuyGreg',
+    title: 'Steals your identity',
+    body: 'Raises your credit score'
+  },
+  {
+    _id: ObjectId("64c0fe3b70b8f696ff689a55"),
+    username: 'GoodGuyGreg',
+    title: 'Reports a bug in your code',
+    body: 'Sends you a pull request'
+  }
+]
+Bootcamp> db.posts.find({username:"ScumbagSteve"})
+[
+  {
+    _id: ObjectId("64c0fe4570b8f696ff689a56"),
+    username: 'ScumbagSteve',
+    title: 'Borrows something',
+    body: 'Sells it'
+  },
+  {
+    _id: ObjectId("64c0fe5070b8f696ff689a57"),
+    username: 'ScumbagSteve',
+    title: 'Borrows everything',
+    body: 'The end'
+  },
+  {
+    _id: ObjectId("64c0fe5d70b8f696ff689a58"),
+    username: 'ScumbagSteve',
+    title: 'Forks your repo on github',
+    body: 'Sets to private'
+  }
+]
+Bootcamp> db.comments.find().pretty()
+[
+  {
+    _id: ObjectId("64c0fe9f70b8f696ff689a59"),
+    username: 'GoodGuyGreg',
+    comment: 'Hope you got a good deal!',
+    post: ObjectId("5ca0b7e96435f98b5901f463")
+  },
+  {
+    _id: ObjectId("64c0fedc70b8f696ff689a5a"),
+    username: 'GoodGuyGreg',
+    comment: "What's mine is yours!",
+    post: ObjectId("5ca0b9706435f98b5901f46a")
+  },
+  {
+    _id: ObjectId("64c0fef870b8f696ff689a5b"),
+    username: 'GoodGuyGreg',
+    comment: "Don't violate the licensing agreement!",
+    post: ObjectId("5ca0b8766435f98b5901f467")
+  },
+  {
+    _id: ObjectId("64c0ff0b70b8f696ff689a5c"),
+    username: 'ScumbagSteve',
+    comment: "It still isn't clean",
+    post: ObjectId("5ca0b8546435f98b5901f466")
+  },
+  {
+    _id: ObjectId("64c0ff1970b8f696ff689a5d"),
+    username: 'ScumbagSteve',
+    comment: 'Denied your PR cause I found a hack',
+    post: ObjectId("5ca0b9256435f98b5901f469")
+  }
+]
