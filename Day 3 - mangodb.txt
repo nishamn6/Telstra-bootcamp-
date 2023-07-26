@@ -1,0 +1,692 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/):
+
+Current Mongosh Log ID: 64c09d1e70b8f696ff689a3f
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1
+Using MongoDB:          6.0.8
+Using Mongosh:          1.10.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2023-07-26T09:28:24.068+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+Bootcamp   72.00 KiB
+admin      40.00 KiB
+config    108.00 KiB
+local      40.00 KiB
+test> use Bootcamp
+switched to db Bootcamp
+Bootcamp>
+
+Bootcamp> show collections
+Employee
+Bootcamp> db.Employee.find()
+[
+  {
+    _id: ObjectId("64c09ac65148588d8f5ae877"),
+    name: 'nisha',
+    dept: 'gnt',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt',
+    age: 22,
+    address: 'mysore',
+    'phone no': Long("9998768654")
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt',
+    age: 22
+  }
+]
+Bootcamp> db.Employee.insertOne({name:"raksha",dept:"tse",age:21})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64c0a0e570b8f696ff689a40")
+}
+Bootcamp> db.Employee.insertOne({name:"gayathri",dept:"cloud",age:21})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64c0a11170b8f696ff689a41")
+}
+Bootcamp> db.Employee.find()
+[
+  {
+    _id: ObjectId("64c09ac65148588d8f5ae877"),
+    name: 'nisha',
+    dept: 'gnt',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt',
+    age: 22,
+    address: 'mysore',
+    'phone no': Long("9998768654")
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt',
+    age: 22
+  },
+  {
+    _id: ObjectId("64c0a0e570b8f696ff689a40"),
+    name: 'raksha',
+    dept: 'tse',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c0a11170b8f696ff689a41"),
+    name: 'gayathri',
+    dept: 'cloud',
+    age: 21
+  }
+]
+Bootcamp> db.Employee.find().pretty()
+[
+  {
+    _id: ObjectId("64c09ac65148588d8f5ae877"),
+    name: 'nisha',
+    dept: 'gnt',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt',
+    age: 22,
+    address: 'mysore',
+    'phone no': Long("9998768654")
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt',
+    age: 22
+  },
+  {
+Bootcamp> db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+Uncaught:
+SyntaxError: Unterminated string constant. (1:109)
+
+> 1 | db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+    |                                                                                                              ^
+  2 |
+
+Bootcamp> db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+Uncaught:
+SyntaxError: Unterminated string constant. (1:109)
+
+> 1 | db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+    |                                                                                                              ^
+  2 |
+
+Bootcamp> db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+Uncaught:
+SyntaxError: Unterminated string constant. (1:109)
+
+> 1 | db.Employee.insertMany([{name:"nishani",dept:"tse",adresss:"mysore"},{name:"vijaya",dept:"IT",age:22,address:"banglor
+    |                                                                                                              ^
+  2 |
+
+Bootcamp> db.Employee.insertMany([{name:"nishani",dept:"tse",address:"banglore"},{name:"vijaya",age:22,dept:"IT"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64c0a2f670b8f696ff689a42"),
+    '1': ObjectId("64c0a2f670b8f696ff689a43")
+  }
+}
+Bootcamp> db.Employee.find()
+[
+  {
+    _id: ObjectId("64c09ac65148588d8f5ae877"),
+    name: 'nisha',
+    dept: 'gnt',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt',
+    age: 22,
+    address: 'mysore',
+    'phone no': Long("9998768654")
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt',
+    age: 22
+  },
+  {
+    _id: ObjectId("64c0a0e570b8f696ff689a40"),
+    name: 'raksha',
+    dept: 'tse',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c0a11170b8f696ff689a41"),
+    name: 'gayathri',
+    dept: 'cloud',
+    age: 21
+  },
+  {
+    _id: ObjectId("64c0a2f670b8f696ff689a42"),
+    name: 'nishani',
+    dept: 'tse',
+    address: 'banglore'
+  },
+  {
+    _id: ObjectId("64c0a2f670b8f696ff689a43"),
+    name: 'vijaya',
+    age: 22,
+    dept: 'IT'
+  }
+]
+Bootcamp> db.Employee.findOne()
+{
+  _id: ObjectId("64c09ac65148588d8f5ae877"),
+  name: 'nisha',
+  dept: 'gnt',
+  age: 21
+}
+Bootcamp> db.Employee.findOne({age:22})
+{
+  _id: ObjectId("64c09ba75148588d8f5ae878"),
+  name: 'divya',
+  dept: 'gnt',
+  age: 22,
+  address: 'mysore',
+  'phone no': Long("9998768654")
+}
+Bootcamp> db.Employee.find({age:22})
+[
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt',
+    age: 22,
+    address: 'mysore',
+    'phone no': Long("9998768654")
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt',
+    age: 22
+  },
+  {
+    _id: ObjectId("64c0a2f670b8f696ff689a43"),
+    name: 'vijaya',
+    age: 22,
+    dept: 'IT'
+  }
+]
+Bootcamp> db.Employee.find({age:22},{name:1})
+[
+  { _id: ObjectId("64c09ba75148588d8f5ae878"), name: 'divya' },
+  { _id: ObjectId("64c09e855148588d8f5ae879"), name: 'vaishnavi' },
+  { _id: ObjectId("64c0a2f670b8f696ff689a43"), name: 'vijaya' }
+]
+Bootcamp> db.Employee.find({age:22},{age:1})
+[
+  { _id: ObjectId("64c09ba75148588d8f5ae878"), age: 22 },
+  { _id: ObjectId("64c09e855148588d8f5ae879"), age: 22 },
+  { _id: ObjectId("64c0a2f670b8f696ff689a43"), age: 22 }
+]
+Bootcamp> db.Employee.find({age:22},{dept:1})
+[
+  { _id: ObjectId("64c09ba75148588d8f5ae878"), dept: 'gnt' },
+  { _id: ObjectId("64c09e855148588d8f5ae879"), dept: 'gnt' },
+  { _id: ObjectId("64c0a2f670b8f696ff689a43"), dept: 'IT' }
+]
+Bootcamp> db.Employee.find({age:22},{dept:1,name:1})
+[
+  {
+    _id: ObjectId("64c09ba75148588d8f5ae878"),
+    name: 'divya',
+    dept: 'gnt'
+  },
+  {
+    _id: ObjectId("64c09e855148588d8f5ae879"),
+    name: 'vaishnavi',
+    dept: 'gnt'
+  },
+  {
+    _id: ObjectId("64c0a2f670b8f696ff689a43"),
+    name: 'vijaya',
+    dept: 'IT'
+  }
+]
+Bootcamp> db.product.insertOne({_id:1,name:"virat",profession:"cricket"})
+{ acknowledged: true, insertedId: 1 }
+Bootcamp> db.product.insertOne({_id:1,name:"siraj",profession:"cricket"})
+MongoServerError: E11000 duplicate key error collection: Bootcamp.product index: _id_ dup key: { _id: 1 }
+Bootcamp> db.product.insertOne({_id:2,name:"siraj",profession:"cricket"})
+{ acknowledged: true, insertedId: 2 }
+Bootcamp> db.product.insertOne({_id:3,name:"dhoni",profession:"cricket"})
+{ acknowledged: true, insertedId: 3 }
+Bootcamp> db.product.find()
+[
+  { _id: 1, name: 'virat', profession: 'cricket' },
+  { _id: 2, name: 'siraj', profession: 'cricket' },
+  { _id: 3, name: 'dhoni', profession: 'cricket' }
+]
+Bootcamp> db.product.updateOne({_id:1},{$set:{profession:"batsman"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Bootcamp> db.product.find()
+[
+  { _id: 1, name: 'virat', profession: 'batsman' },
+  { _id: 2, name: 'siraj', profession: 'cricket' },
+  { _id: 3, name: 'dhoni', profession: 'cricket' }
+]
+Bootcamp> db.products.insertMany([
+price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+("2015-01-14"),14spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate
+Uncaught:
+SyntaxError: Unexpected token (3:45)
+
+  1 | db.products.insertMany([
+  2 |     { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+> 3 |     { "_id" : 2, "name" : "xTablet", "    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    |                                              ^
+  4 |
+
+, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+Uncaught:
+SyntaxError: Missing semicolon. (1:11)
+
+> 1 |     { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    |            ^
+  2 |     { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+  3 |  ])
+  4 |
+
+Bootcamp> db.products.insertMany([
+price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+("2015-01-14"),14spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate
+Uncaught:
+SyntaxError: Unexpected token (3:45)
+
+  1 | db.products.insertMany([
+  2 |     { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+> 3 |     { "_id" : 2, "name" : "xTablet", "    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    |                                              ^
+  4 |
+
+, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+Uncaught:
+SyntaxError: Missing semicolon. (1:11)
+
+> 1 |     { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    |            ^
+  2 |     { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+  3 |  ])
+  4 |
+
+Bootcamp> db.products.insertMany([
+price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+("2015-01-14"),14spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate
+Uncaught:
+SyntaxError: Unexpected token (3:45)
+
+  1 | db.products.insertMany([
+  2 |     { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+> 3 |     { "_id" : 2, "name" : "xTablet", "    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    |                                              ^
+  4 |
+
+, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+Uncaught:
+SyntaxError: Missing semicolon. (1:11)
+
+> 1 |     { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    |            ^
+  2 |     { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+  3 |  ])
+  4 |
+
+Bootcamp> db.products.insertMany([
+price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+("2015-01-14"),14spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate
+Uncaught:
+SyntaxError: Unexpected token (3:45)
+
+  1 | db.products.insertMany([
+  2 |     { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+> 3 |     { "_id" : 2, "name" : "xTablet", "    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    |                                              ^
+  4 |
+
+, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+Uncaught:
+SyntaxError: Missing semicolon. (1:11)
+
+> 1 |     { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    |            ^
+  2 |     { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+  3 |  ])
+  4 |
+
+Bootcamp> db.products.insertMany([
+price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+("2015-01-14"),14spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate
+Uncaught:
+SyntaxError: Unexpected token (3:45)
+
+  1 | db.products.insertMany([
+  2 |     { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+> 3 |     { "_id" : 2, "name" : "xTablet", "    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    |                                              ^
+  4 |
+
+, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+Uncaught:
+SyntaxError: Missing semicolon. (1:11)
+
+> 1 |     { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    |            ^
+  2 |     { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+  3 |  ])
+  4 |
+
+Bootcamp> db.products.insertMany([
+en" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},e("2011-05-14"), "spec" : { "ram" : 4, "scre
+creen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},1") , "spec" : { "ram" : 16, "s
+ "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},": ISODate("2015-01-14"), "spec" : { "ram" : 12,
+een" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},"spec" : { "ram" : 8, "scr
+creen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}14"), "spec" : { "ram" : 4, "s
+...  ])
+{
+  acknowledged: true,
+  insertedIds: { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 }
+}
+Bootcamp> bd.products.find()
+
+
+Bootcamp> db.products.find()
+[
+  {
+    _id: 1,
+    name: 'xPhone',
+    price: 799,
+    releaseDate: ISODate("2011-05-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'xTablet',
+    price: 899,
+    releaseDate: ISODate("2011-09-01T00:00:00.000Z"),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartTablet',
+    price: 899,
+    releaseDate: ISODate("2015-01-14T00:00:00.000Z"),
+    spec: { ram: 12, screen: 9.7, cpu: 3.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  },
+  {
+    _id: 4,
+    name: 'SmartPad',
+    price: 699,
+    releaseDate: ISODate("2020-05-14T00:00:00.000Z"),
+    spec: { ram: 8, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256, 1024 ]
+  },
+  {
+    _id: 5,
+    name: 'SmartPhone',
+    price: 599,
+    releaseDate: ISODate("2022-09-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256 ]
+  }
+]
+Bootcamp> db.products.find({
+...     price: {
+...         $eq: 899
+...     }
+... }, {
+...     name: 1,
+...     price: 1
+... })
+[
+  { _id: 2, name: 'xTablet', price: 899 },
+  { _id: 3, name: 'SmartTablet', price: 899 }
+]
+Bootcamp> db.products.find()
+[
+  {
+    _id: 1,
+    name: 'xPhone',
+    price: 799,
+    releaseDate: ISODate("2011-05-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'xTablet',
+    price: 899,
+    releaseDate: ISODate("2011-09-01T00:00:00.000Z"),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartTablet',
+    price: 899,
+    releaseDate: ISODate("2015-01-14T00:00:00.000Z"),
+    spec: { ram: 12, screen: 9.7, cpu: 3.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  },
+  {
+    _id: 4,
+    name: 'SmartPad',
+    price: 699,
+    releaseDate: ISODate("2020-05-14T00:00:00.000Z"),
+    spec: { ram: 8, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256, 1024 ]
+  },
+  {
+    _id: 5,
+    name: 'SmartPhone',
+    price: 599,
+    releaseDate: ISODate("2022-09-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256 ]
+  }
+]
+Bootcamp> db.products.find({
+...     price: {
+...         $lt: 799
+...     }
+... }, {
+...     name: 1,
+...     price: 1
+... })
+[
+  { _id: 4, name: 'SmartPad', price: 699 },
+  { _id: 5, name: 'SmartPhone', price: 599 }
+]
+Bootcamp> db.products.find({
+...     "spec.screen": {
+...         $lt: 7
+...     }
+... }, {
+...     name: 1,
+...     "spec.screen": 1
+... })
+[ { _id: 1, name: 'xPhone', spec: { screen: 6.5 } } ]
+Bootcamp> db.products.find({)
+Uncaught:
+SyntaxError: Unexpected token (1:18)
+
+> 1 | db.products.find({)
+    |                   ^
+  2 |
+
+Bootcamp> db.products.find({price:{$gt:699}})
+[
+  {
+    _id: 1,
+    name: 'xPhone',
+    price: 799,
+    releaseDate: ISODate("2011-05-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'xTablet',
+    price: 899,
+    releaseDate: ISODate("2011-09-01T00:00:00.000Z"),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartTablet',
+    price: 899,
+    releaseDate: ISODate("2015-01-14T00:00:00.000Z"),
+    spec: { ram: 12, screen: 9.7, cpu: 3.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  }
+]
+Bootcamp> db.products.find({price:{$gt:699}},{name,price})
+ReferenceError: name is not defined
+Bootcamp> db.products.find({price:{$gt:699}},{name:1,price:1})
+[
+  { _id: 1, name: 'xPhone', price: 799 },
+  { _id: 2, name: 'xTablet', price: 899 },
+  { _id: 3, name: 'SmartTablet', price: 899 }
+]
+Bootcamp> db.products.find({
+...     $and: [{
+...         price: 899
+...     }, {
+...         color: {
+...             $in: ["white", "black"]
+...         }
+...     }]
+... }, {
+...     name: 1,
+...     price: 1,
+...     color: 1
+... })
+[
+  {
+    _id: 2,
+    name: 'xTablet',
+    price: 899,
+    color: [ 'white', 'black', 'purple' ]
+  }
+]
+Bootcamp> db.products.updateOne({_id:1},{$set:{price:899}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+Bootcamp> db.products.find()
+[
+  {
+    _id: 1,
+    name: 'iPhone',
+    price: 899,
+    releaseDate: ISODate("2011-05-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'xTablet',
+    price: 899,
+    releaseDate: ISODate("2011-09-01T00:00:00.000Z"),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartTablet',
+    price: 899,
+    releaseDate: ISODate("2015-01-14T00:00:00.000Z"),
+    spec: { ram: 12, screen: 9.7, cpu: 3.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  },
+  {
+    _id: 4,
+    name: 'SmartPad',
+    price: 699,
+    releaseDate: ISODate("2020-05-14T00:00:00.000Z"),
+    spec: { ram: 8, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256, 1024 ]
+  },
+  {
+    _id: 5,
+    name: 'SmartPhone',
+    price: 599,
+    releaseDate: ISODate("2022-09-14T00:00:00.000Z"),
+    spec: { ram: 4, screen: 9.7, cpu: 1.66 },
+    color: [ 'white', 'orange', 'gold', 'gray' ],
+    storage: [ 128, 256 ]
+  }
+]
