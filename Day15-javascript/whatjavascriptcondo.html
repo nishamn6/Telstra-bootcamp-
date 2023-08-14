@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p id="p1">this is paragraph 1</p>
+    <p id="p2" style="background-color: blueviolet;">this is paragraph 2</p>
+
+    <img id="img1" src="Screenshot (14).png" height="100px" width="100px">
+<br><br>
+    <button onclick="changeContent()">click me to change html content</button><br><br>
+    <button onclick="DocumentOutput()">Document Output</button><br><br>
+    <button onclick="alertOutput()">window Output</button><br><br>
+     <button onclick="changeAttributeValue()">changeAttribute Value</button><br><br>
+     <button onclick="changeCssStyle()">change css style</button><br><br>
+
+    
+
+    <script>
+        function changeContent()
+        {
+           //document.getElementById('id').innerHTML="................."; ---->syntax
+           document.getElementById('p1').innerHTML="hello world";
+        }
+        function DocumentOutput()
+        {
+           document.write("this is document output");
+        }
+        function alertOutput()
+        {
+            window.alert("window output")
+        }
+
+        function changeAttributeValue()
+        {
+            document.getElementById('img1').src="Screenshot (2).png";
+        }
+
+        function changeCssStyle()
+        {
+            document.getElementById('p2').style.backgroundColor='red';
+        }
+    </script>
+    
+</body>
+</html>
