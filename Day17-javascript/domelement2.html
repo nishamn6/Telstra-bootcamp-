@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="p1">this is para 1</p>
+    <p id="p2">this is para 2</p>
+
+    <button onclick="appstyle()">click here to format</button>
+    <script>
+        function appstyle()
+        {
+        let mystyle = document.getElementById('p1');
+        console.log(mystyle);
+
+        mystyle.style.backgroundColor =" blue";
+        mystyle.style.fontSize="50px";
+        mystyle.innerHTML="this is javascript content";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p class="p1">this is para 1</p>
+    <p class="p1">this is para 2</p>
+    <p class="p2">this is para 3</p>
+    <p class="p1">this is para 4</p>
+
+    <button onclick="appstyle()">click me for style</button>
+
+    <script>
+        function appstyle()
+        {
+            let element = document.getElementsByClassName('p1');
+        console.log(element);
+        console.log(element.length);
+        for (let i=0;i<element.length;i++)
+        {
+            element[i].style.backgroundColor="green";
+            
+            if(i>1)
+            {
+                element[i].style.backgroundColor="blue";  
+            }
+        }
+        }
+    </script>
+
+</body>
+</html>

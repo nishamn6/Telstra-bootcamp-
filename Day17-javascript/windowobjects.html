@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="alertwindow()"> Alert Window</button>
+    <button ondblclick="confirmwindow()"> confirm  Window</button>
+    <button onmouseover="promptwindow()"> prompt Window</button>
+    <button onmouseout="openNewwindow()"> open new Window</button>
+    <button onclick="closewindow()"> close Window</button>
+
+
+
+    <script>
+
+      function alertwindow()
+      {
+        alert("this is a alert window");
+      }
+      function confirmwindow()
+      {
+        let result = confirm("do you really want to close");
+        if(result=true)
+        {
+            alert("you are clicked ok");
+        }
+        else
+        {
+            alert("you are clicked ok");
+        }
+      }
+    function promptwindow()
+    {
+        let age = window.prompt("enter your age");
+
+        let  name = prompt("enter your name");
+
+        alert("your name " + name +"age"+ age);
+
+    }
+
+    var win;
+    function openNewwindow()
+    {
+
+        win = window.open("https://www.google.com/","width=200","height=100");
+        // window.open("https://www.google.com/");
+        // window.open("https://www.flipkart.com/");
+        setTimeout(function()
+    {
+        win.close();
+    },4000 )
+    }
+    function closewindow()
+    {
+        // window.close("https://www.google.com/");
+        // window.close("https://www.flipkart.com/");
+      // window.close();
+
+    // win.close();
+    setTimeout(function()
+    {
+        win.close();
+    },4000 )
+    }
+
+    </script>
+</body>
+</html>

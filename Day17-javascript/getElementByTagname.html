@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>this is h1</h1>
+    <p>this is para 1</p>
+    <p>this is para 2</p>
+    <p>this is para 3</p>
+
+    <button>click me!</button>
+
+    <script>
+        let button = document.getElementsByTagName("button")[0];
+        console.log(button);
+
+       let value= button.childNodes[0].nodeValue;
+       console.log(value);
+
+        // let value = para.childNodes[1].nodeValue;
+        // console.log(value);
+    </script>
+</body>
+</html>

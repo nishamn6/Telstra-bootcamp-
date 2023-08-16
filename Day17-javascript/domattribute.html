@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a id ="anchor1">click me to open google</a><br><br>
+    <a id ="anchor1" href="https://www.flipkart.com/">click me to open flipkart</a>
+    <hr>
+    <button onclick="seturl()">click me to set attribute</button>
+
+    <button onclick="removeurl()">click me to remove url</button>
+
+    <button onclick="checkAttributevalue">click me!</button>
+    <button onclick="checkAttributeispresentornot">click me:</button>
+
+    <script>
+        function seturl()
+        {
+            //document.getElementById("anchor1").setAttribute("href","https://www.flipkart.com/");
+            let element = document.getElementById("anchor1");
+            element.setAttribute("href","https://www.flipkart.com/");
+            element.setAttribute("target","_blank");
+            console.log(element);
+
+        }
+        function removeurl()
+        {
+            let element = document.getElementById("anchor1");
+            element.removeAttribute("href");
+            element.removeAttribute("target");
+            console.log("after removing");
+            console.log(element);  
+        }
+        function checkAttributevalue()
+        {
+            let element = document.getElementById("anchor1");
+            let url = element.getAttribute("href");
+            alert(url);
+            let target = element.getAttribute("target");
+            alert(target);
+
+
+        }
+        function checkAttributeispresentornot()
+        {
+            let element = document.getElementById("anchor1"); 
+            let result = element.hasAttribute("target");
+            console.log(result);
+        }
+
+
+    </script>
+    
+</body>
+</html>
