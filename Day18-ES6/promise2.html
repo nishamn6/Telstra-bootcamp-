@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         let task = true; 
+         
+         //let task = false; 
+
+         function prom(task)
+         {
+            return new Promise(function(resolve,reject)
+         {
+            if(task)
+            {
+                resolve("i will return the money");
+            }
+            else
+            {
+                reject("not arranged");
+            }
+
+         } 
+         );
+         }
+        
+         //console.log(prom(task));
+         prom(task).then(
+            function displayinfo(msg)
+            {
+              console.log("promise success: ----s " +msg)
+            },
+        //     function displaymessage(msg)
+        //     {
+        //    console.log("promise result "+msg)
+        //     },
+        //     displaymessage("hello")
+         )
+            .catch(
+                function displayerrorinfo(msg)
+                {
+                    console.log("promise fail result: "+msg)
+                }
+            )
+
+         
+    </script>
+</body>
+</html>
